@@ -23,7 +23,7 @@ def get_llm(logger=None):
         )
         class _Local:
             def invoke(self, prompt: str):
-                return gen(prompt)[0]["generated_text"]
+                return gen(prompt, max_new_tokens=256, do_sample=True, temperature=0.7, top_p=0.9)[0]["generated_text"]
         if logger: logger.info("LLM: local transformers pipeline")
         return _Local()
     except Exception as e:
